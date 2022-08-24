@@ -55,12 +55,40 @@ export default {
         ),
       },
       {
-        slug: "action",
-        title: "Filmes de Ação",
+        slug: "romance",
+        title: "Filmes de Romance",
         items: await basicFetch(
-          `/discover/movies?with_genre=28language=pt-BR&api_key=${API_KEY}`
+          `/discover/movies?with_genre=10749language=pt-BR&api_key=${API_KEY}`
+        ),
+      },
+      {
+        slug: "documentary",
+        title: "Documentários",
+        items: await basicFetch(
+          `/discover/movies?with_genre=99language=pt-BR&api_key=${API_KEY}`
         ),
       },
     ];
+  },
+  getMovieInfo: async (movieId, type) => {
+    let info = {};
+    if (movieId) {
+      // eslint-disable-next-line default-case
+      switch (type) {
+        case "movie":
+          info = await basicFetch(
+            `/movie/${movieId}?language=pt-BR&api_key=${API_KEY}`
+          );
+          break;
+        case "tv":
+          info = await basicFetch(
+            `/tv/${movieId}?language=pt-BR&api_key=${API_KEY}`
+          );
+          break;
+        default:
+          info = null;
+          break;
+      }
+    }
   },
 };
