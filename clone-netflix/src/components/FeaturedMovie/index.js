@@ -3,14 +3,14 @@ import "./FeaturedMovie.css";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default ({ item }) => {
-  console.log(item);
   let firstDate = new Date(item.first_air_date);
-  let description = item.overview;
   let genres = [];
 
-  for (let indice in item.genres) {
-    genres.push(item.genres[indice].name);
+  for (let i in item.genres) {
+    genres.push(item.genres[i].name);
   }
+
+  let description = item.overview;
 
   return (
     <section
@@ -18,14 +18,14 @@ export default ({ item }) => {
       style={{
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundImage: `URL(https://image.tmdb.org/t/p/original${item.backdrop_path})`,
+        backgroundImage: `url(https://image.tmdb.org/t/p/original${item.backdrop_path})`,
       }}
     >
       <div className="featured--vertical">
         <div className="featured--horizontal">
-          <div className="featured--name">{item.name}</div>
+          <div className="featured--name">{item.original_name}</div>
           <div className="featured--info">
-            <div className="featured--points">{item.vote_average}</div>
+            <div className="featured--points">{item.vote_average} pontos</div>
             <div className="featured--year">{firstDate.getFullYear()}</div>
             <div className="featured--seasons">
               {item.number_of_seasons} temporada
@@ -37,12 +37,13 @@ export default ({ item }) => {
             <a href={`/watch/${item.id}`} className="featured--watchbutton">
               Assistir
             </a>
-            <a href={`/list/add/${item.id}`} className="featured--mylistbutton">
-              Minha Lista
+            <a href={`/List/add/${item.id}`} className="featured--mylistbutton">
+              + Minha Lista
             </a>
           </div>
           <div className="featured--genres">
-            <strong>Gêneros: </strong> {genres.join(", ")}
+            <strong>Gêneros: </strong>
+            {genres.join(", ")}
           </div>
         </div>
       </div>
